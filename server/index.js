@@ -17,11 +17,36 @@ console.log("MONGODB_URI:", process.env.MONGODB_URI ? "✅ found" : "❌ NOT FOU
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const allowedOrigins = [
+  'https://pc-sensei.vercel.app',
+  'https://www.pcsensei.pr1nce.tech',
+  'https://pcsensei.pr1nce.tech',
+  'http://localhost:5173',
+]
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`))
+      }
+    },
+    credentials: true,
+  })
+)
 
 // ─── Middleware ────────────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`))
+      }
+    },
     credentials: true,
   })
 );
