@@ -1,0 +1,161 @@
+export const PREBUILDS = [
+  // ── ₹30,000 tier ──────────────────────────────────────────
+  {
+    id: 'budget-office',
+    title: 'Budget Office',
+    tier: '30k',
+    useCase: 'office',
+    totalPrice: 28500,
+    description: 'Light daily use, browsing, documents',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 3 4100',               brand: 'AMD',     price: 6500,  specs: '4C/8T, 3.8GHz boost' },
+      gpu:         { name: 'Integrated Radeon Graphics',      brand: 'AMD',     price: 0,     specs: 'Built into CPU' },
+      motherboard: { name: 'MSI A320M-A Pro',                 brand: 'MSI',     price: 5500,  specs: 'AM4, Micro-ATX, DDR4' },
+      memory:      { name: 'Corsair 8GB DDR4 3200MHz',        brand: 'Corsair', price: 2200,  specs: '8GB, DDR4 3200MHz' },
+      storage:     { name: 'WD Green 480GB SSD',              brand: 'WD',      price: 3500,  specs: '480GB SATA SSD' },
+      psu:         { name: 'Ant Esports 550W 80+ Bronze',     brand: 'Ant',     price: 3300,  specs: '550W, 80+ Bronze' },
+      case:        { name: 'Ant Esports ICE-100TG',           brand: 'Ant',     price: 2800,  specs: 'Mid-Tower, Tempered Glass' },
+    },
+  },
+  {
+    id: 'budget-gaming',
+    title: 'Budget Gaming Starter',
+    tier: '30k',
+    useCase: 'gaming',
+    totalPrice: 29800,
+    description: 'Entry-level 1080p gaming',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 3 4100',               brand: 'AMD',     price: 6500,  specs: '4C/8T, 3.8GHz boost' },
+      gpu:         { name: 'NVIDIA GTX 1650 4GB',             brand: 'NVIDIA',  price: 10500, specs: '4GB GDDR6, 1080p gaming' },
+      motherboard: { name: 'MSI A320M-A Pro',                 brand: 'MSI',     price: 5500,  specs: 'AM4, Micro-ATX, DDR4' },
+      memory:      { name: 'Corsair 8GB DDR4 3200MHz',        brand: 'Corsair', price: 2200,  specs: '8GB, DDR4 3200MHz' },
+      storage:     { name: 'WD Green 480GB SSD',              brand: 'WD',      price: 3500,  specs: '480GB SATA SSD' },
+      psu:         { name: 'Ant Esports 550W 80+ Bronze',     brand: 'Ant',     price: 3300,  specs: '550W, 80+ Bronze' },
+      case:        { name: 'Ant Esports ICE-100TG',           brand: 'Ant',     price: 2800,  specs: 'Mid-Tower, Tempered Glass' },
+    },
+  },
+
+  // ── ₹50,000 tier ──────────────────────────────────────────
+  {
+    id: 'mid-gaming',
+    title: 'Mid-Range Gaming',
+    tier: '50k',
+    useCase: 'gaming',
+    totalPrice: 49500,
+    description: 'Smooth 1080p, playable 1440p',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 5 5600',               brand: 'AMD',     price: 12500, specs: '6C/12T, 4.4GHz boost' },
+      gpu:         { name: 'NVIDIA RTX 3060 12GB',            brand: 'NVIDIA',  price: 22000, specs: '12GB GDDR6, 1080p/1440p' },
+      motherboard: { name: 'MSI B550M Pro-VDH WiFi',          brand: 'MSI',     price: 8500,  specs: 'AM4, Micro-ATX, WiFi' },
+      memory:      { name: 'Corsair 16GB DDR4 3200MHz',       brand: 'Corsair', price: 3200,  specs: '16GB (2x8), DDR4 3200' },
+      storage:     { name: 'Samsung 970 EVO Plus 500GB',      brand: 'Samsung', price: 5500,  specs: '500GB NVMe PCIe Gen3' },
+      psu:         { name: 'Corsair CV550 550W 80+ Bronze',   brand: 'Corsair', price: 4200,  specs: '550W, 80+ Bronze' },
+      case:        { name: 'Cooler Master MasterBox Q300L',   brand: 'CM',      price: 3500,  specs: 'Micro-ATX, Mesh panel' },
+    },
+  },
+  {
+    id: 'mid-programming',
+    title: 'Developer Workstation',
+    tier: '50k',
+    useCase: 'programming',
+    totalPrice: 48900,
+    description: 'Fast compiles, multitasking beast',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 5 5600X',              brand: 'AMD',     price: 14000, specs: '6C/12T, 4.6GHz boost' },
+      gpu:         { name: 'NVIDIA GTX 1660 Super 6GB',       brand: 'NVIDIA',  price: 14000, specs: '6GB GDDR6, dual monitor' },
+      motherboard: { name: 'MSI B550M Pro-VDH WiFi',          brand: 'MSI',     price: 8500,  specs: 'AM4, Micro-ATX, WiFi' },
+      memory:      { name: 'Corsair 32GB DDR4 3200MHz',       brand: 'Corsair', price: 6500,  specs: '32GB (2x16), DDR4 3200' },
+      storage:     { name: 'Samsung 970 EVO Plus 1TB',        brand: 'Samsung', price: 8500,  specs: '1TB NVMe PCIe Gen3' },
+      psu:         { name: 'Corsair CV550 550W 80+ Bronze',   brand: 'Corsair', price: 4200,  specs: '550W, 80+ Bronze' },
+      case:        { name: 'Cooler Master MasterBox Q300L',   brand: 'CM',      price: 3500,  specs: 'Micro-ATX, Mesh panel' },
+    },
+  },
+
+  // ── ₹80,000 tier ──────────────────────────────────────────
+  {
+    id: 'high-gaming',
+    title: 'High-End Gaming',
+    tier: '80k',
+    useCase: 'gaming',
+    totalPrice: 79000,
+    description: 'Ultra 1080p, high 1440p gaming',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 5 7600X',              brand: 'AMD',     price: 22000, specs: '6C/12T, 5.3GHz boost, AM5' },
+      gpu:         { name: 'NVIDIA RTX 4060 Ti 8GB',          brand: 'NVIDIA',  price: 35000, specs: '8GB GDDR6, DLSS 3' },
+      motherboard: { name: 'MSI B650M Pro-A WiFi',            brand: 'MSI',     price: 12000, specs: 'AM5, Micro-ATX, DDR5, WiFi' },
+      memory:      { name: 'Corsair 16GB DDR5 5200MHz',       brand: 'Corsair', price: 5500,  specs: '16GB (2x8), DDR5 5200' },
+      storage:     { name: 'Samsung 980 Pro 1TB',             brand: 'Samsung', price: 9000,  specs: '1TB NVMe PCIe Gen4' },
+      psu:         { name: 'Corsair RM650x 650W 80+ Gold',    brand: 'Corsair', price: 7500,  specs: '650W, 80+ Gold, Modular' },
+      case:        { name: 'Lian Li Lancool 205M',            brand: 'Lian Li', price: 6500,  specs: 'Mid-Tower, Mesh, 2x fans' },
+    },
+  },
+  {
+    id: 'high-editing',
+    title: 'Content Creator',
+    tier: '80k',
+    useCase: 'editing',
+    totalPrice: 78500,
+    description: '4K video editing, rendering',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 7 5700X',              brand: 'AMD',     price: 18500, specs: '8C/16T, 4.6GHz boost' },
+      gpu:         { name: 'NVIDIA RTX 4060 8GB',             brand: 'NVIDIA',  price: 30000, specs: '8GB GDDR6, NVENC, DLSS 3' },
+      motherboard: { name: 'MSI B550 Tomahawk',               brand: 'MSI',     price: 12500, specs: 'AM4, ATX, DDR4, 2.5G LAN' },
+      memory:      { name: 'Corsair 32GB DDR4 3600MHz',       brand: 'Corsair', price: 8000,  specs: '32GB (2x16), DDR4 3600' },
+      storage:     { name: 'Samsung 980 Pro 2TB',             brand: 'Samsung', price: 15000, specs: '2TB NVMe PCIe Gen4' },
+      psu:         { name: 'Corsair RM650x 650W 80+ Gold',    brand: 'Corsair', price: 7500,  specs: '650W, 80+ Gold, Modular' },
+      case:        { name: 'NZXT H510',                       brand: 'NZXT',    price: 7500,  specs: 'Mid-Tower, Tempered Glass' },
+    },
+  },
+
+  // ── ₹1L+ tier ─────────────────────────────────────────────
+  {
+    id: 'ultra-gaming',
+    title: 'Ultra Gaming Beast',
+    tier: '1L',
+    useCase: 'gaming',
+    totalPrice: 98000,
+    description: '4K gaming, max settings everything',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 7 7700X',              brand: 'AMD',     price: 28000, specs: '8C/16T, 5.4GHz boost, AM5' },
+      gpu:         { name: 'NVIDIA RTX 4070 12GB',            brand: 'NVIDIA',  price: 48000, specs: '12GB GDDR6X, 4K capable' },
+      motherboard: { name: 'ASUS ROG Strix B650-A Gaming',    brand: 'ASUS',    price: 18000, specs: 'AM5, ATX, DDR5, WiFi 6E' },
+      memory:      { name: 'G.Skill Trident Z5 32GB DDR5',   brand: 'G.Skill', price: 10000, specs: '32GB (2x16), DDR5 6000' },
+      storage:     { name: 'Samsung 990 Pro 1TB',             brand: 'Samsung', price: 10500, specs: '1TB NVMe PCIe Gen4' },
+      psu:         { name: 'Corsair RM750x 750W 80+ Gold',    brand: 'Corsair', price: 9500,  specs: '750W, 80+ Gold, Modular' },
+      case:        { name: 'Lian Li PC-O11 Dynamic EVO',      brand: 'Lian Li', price: 10500, specs: 'Mid-Tower, Dual Chamber' },
+    },
+  },
+  {
+    id: 'ultra-workstation',
+    title: 'Pro Workstation',
+    tier: '1L',
+    useCase: 'editing',
+    totalPrice: 105000,
+    description: '3D, VFX, heavy rendering',
+    parts: {
+      cpu:         { name: 'AMD Ryzen 9 7900X',              brand: 'AMD',     price: 38000, specs: '12C/24T, 5.6GHz boost, AM5' },
+      gpu:         { name: 'NVIDIA RTX 4070 Ti 12GB',         brand: 'NVIDIA',  price: 55000, specs: '12GB GDDR6X, creator optimised' },
+      motherboard: { name: 'ASUS ProArt X670E-Creator',       brand: 'ASUS',    price: 22000, specs: 'AM5, ATX, DDR5, Thunderbolt 4' },
+      memory:      { name: 'Corsair 64GB DDR5 5600MHz',       brand: 'Corsair', price: 20000, specs: '64GB (2x32), DDR5 5600' },
+      storage:     { name: 'Samsung 990 Pro 2TB',             brand: 'Samsung', price: 18000, specs: '2TB NVMe PCIe Gen4' },
+      psu:         { name: 'Corsair HX850 850W 80+ Platinum', brand: 'Corsair', price: 13000, specs: '850W, 80+ Platinum, Modular' },
+      case:        { name: 'Fractal Design Meshify 2',        brand: 'Fractal', price: 12000, specs: 'Mid-Tower, Mesh, excellent airflow' },
+    },
+  },
+]
+
+export const TIERS = [
+  { key: 'all', label: 'All Builds' },
+  { key: '30k', label: '₹30,000' },
+  { key: '50k', label: '₹50,000' },
+  { key: '80k', label: '₹80,000' },
+  { key: '1L',  label: '₹1L+' },
+]
+
+export const USE_CASES = [
+  { key: 'all',         label: 'All',         emoji: '🖥️' },
+  { key: 'gaming',      label: 'Gaming',      emoji: '🎮' },
+  { key: 'editing',     label: 'Editing',     emoji: '🎬' },
+  { key: 'programming', label: 'Programming', emoji: '💻' },
+  { key: 'office',      label: 'Office',      emoji: '📋' },
+]
