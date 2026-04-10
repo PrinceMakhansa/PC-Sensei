@@ -13,7 +13,7 @@ This repository contains a university project for the AWT course.
 
 ## AI Features
 
-PCSENSEI includes an AI-assisted "AI Build" feature that calls the Gemini API to suggest components and configurations. The integration requires a Gemini API key via the `GEMINI_API_KEY` environment variable. Do not commit real API keys to source control; use `.env` locally and keep `.env.example` in the repo with a placeholder value.
+PCSENSEI includes an AI-assisted "AI Build" feature that calls the Gemini API to suggest components and configurations. The integration requires a Gemini API key via the `GEMINI_API_KEY` environment variable.
 
 
 ## Folder Structure
@@ -122,17 +122,11 @@ If you need sample data, run the seed script at `src/scripts/seed.js`. Review it
 
 ## Deployment / Live Preview
 
-- Frontend hosting: Vercel - the client is deployed at https://pc-sensei.vercel.app/
-- Backend hosting: Render - the API is hosted and reachable at https://www.pcsensei.pr1nce.tech/
+- https://pc-sensei.vercel.app/  
+                or
+- https://www.pcsensei.pr1nce.tech/  
 
-- The repo includes `vercel.json` for Vercel deployments; review environment variables before deploying your own instances.
-
-Live preview links:
-
-- https://pc-sensei.vercel.app/  (frontend)
-- https://www.pcsensei.pr1nce.tech/  (backend/preview)
-
-Note: both domains serve the same deployed site. The frontend is hosted on Vercel and the backend/API is hosted on Render. Both links currently point to the full site (two domains for the same deployment).
+Note: both domains serve the same deployed site. The frontend is hosted on Vercel and the backend/API is hosted on Render.
 
 ## Author
 
