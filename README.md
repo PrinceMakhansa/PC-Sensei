@@ -1,123 +1,148 @@
 # PCSENSEI
 
-PCSENSEI is a full-stack web application for planning PC upgrades. It provides a modern user-facing interface for discovering compatible components, building upgrade plans, and saving builds, backed by an Express + MongoDB API.
+PCSENSEI is a full-stack web application for planning PC upgrades. It helps users discover compatible PC components, create upgrade plans, and save builds. The app includes a public client, authenticated user features, and an admin area for managing components and builds.
 
-This is a university project for the AWT course.
+This repository contains a university project for the AWT course.
 
-## Features
+## Quick Project Summary
 
-- Auth flow with JWT-based sessions
-- Component browsing and filtering
-- Build creation and management
-- Admin area for managing data
-- Health check endpoint for server status
+- **Client:** React (Vite), React Router, Tailwind CSS
+- **API:** Express 5 with Mongoose (MongoDB)
+- **Auth:** JWT-based sessions, bcrypt for password hashing
+- **Dev tooling:** Nodemon, Vite, ESLint, PostCSS
 
-## Tech Stack
+## AI features
 
-**Frontend**
-- React 19
-- Vite
-- React Router
-- Tailwind CSS + PostCSS
+PCSENSEI includes an AI-assisted "AI Build" feature that calls the Gemini API to suggest components and configurations. The AI integration requires a Gemini API key which must be provided via an environment variable `GEMINI_API_KEY`. Do NOT commit the real API key to source control — use `.env` locally and keep `.env.example` in the repo with a placeholder value.
 
-**Backend**
-- Express 5
-- MongoDB + Mongoose
-- JWT auth + bcrypt
-- Helmet, CORS, Morgan
+## GitHub
 
-## Getting Started
+The project repository is published at: https://github.com/PrinceMakhansa/PC-Sensei
 
-### Prerequisites
+Include the above link in your Word submission as the project source.
 
-- Node.js 18+ (recommended)
-- MongoDB (local instance or Atlas)
+## Folder structure (detailed)
 
-### 1) Install dependencies
+```
+.
+├─ public/                      # static assets served by Vite
+├─ server/                      # Express API
+│  ├─ controllers/              # request handlers (auth, builds, components, admin)
+│  │  ├─ adminController.js
+│  │  ├─ authController.js
+│  │  ├─ buildController.js
+│  │  └─ componentController.js
+│  ├─ middleware/               # Express middleware (auth, error handling)
+│  │  ├─ auth.js
+│  │  └─ errorHandler.js
+│  ├─ models/                   # server-side Mongoose models (Build.js)
+│  ├─ routes/                   # Express route definitions (admin, auth, builds, components)
+│  └─ index.js                  # express app entry (server startup)
+├─ src/                         # React app
+│  ├─ api/                      # client-side API wrappers (admin, auth, builds, components, client.js)
+│  ├─ assets/
+│  ├─ components/               # UI components + layout
+│  │  ├─ ProtectedRoute.jsx
+│  │  ├─ common/Reveal.jsx
+│  │  └─ layout/(Navbar,Footer,Logo)
+│  ├─ hooks/                    # custom React hooks (useAuth, useBuilds, useComponents, etc.)
+│  ├─ lib/                      # client-side helpers (mongodb connection wrappers for server code)
+│  ├─ models/                   # shared models used by client (Build, Component, User)
+│  ├─ pages/                    # route pages (client and admin folders)
+│  ├─ scripts/                  # utility scripts (seed.js)
+│  └─ utils/                    # helper utilities (formatters.js)
+├─ README.md                    # this file
+├─ package.json
+├─ vite.config.js
+└─ vercel.json
+```
+
+Notes:
+- Server code lives in `server/` and is a standalone Express API.
+- React client lives in `src/` and is built with Vite.
+
+## Environment variables
+
+Create a `.env.local` (client) and `.env` (server) as required. Minimal variables:
+
+```
+MONGODB_URI=mongodb://127.0.0.1:27017/pcsensei
+CLIENT_URL=http://localhost:5173
+PORT=5000
+JWT_SECRET=your_jwt_secret_here
+```
+
+## Run locally (development)
+
+1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2) Configure environment variables
-
-Create a `.env.local` file at the project root:
-
-```bash
-MONGODB_URI=mongodb://127.0.0.1:27017
-CLIENT_URL=http://localhost:5173
-PORT=5000
-```
-
-Notes:
-- `MONGODB_URI` is required by the API.
-- `CLIENT_URL` controls CORS for the frontend.
-- `PORT` defaults to `5000` if omitted.
-
-### 3) Run the backend API
+2. Start the server (from project root)
 
 ```bash
 npm run server
 ```
 
-The API will start on `http://localhost:5000`.
+This runs the Express API on `http://localhost:5000` by default.
 
-### 3b) Quickstart (client + server)
-
-Run both the frontend and backend together:
-
-```bash
-npm run dev:all
-```
-
-### 4) Run the frontend
+3. Start the client (in a separate terminal)
 
 ```bash
 npm run dev
 ```
 
-The frontend will start on `http://localhost:5173`.
+Client runs at `http://localhost:5173`.
 
-## Project Structure
+4. Quickstart (both client + server)
 
-```
-server/        Express API (routes, controllers, middleware)
-src/           React app (pages, components, hooks, api)
-public/        Static assets
+```bash
+npm run dev:all
 ```
 
-## Scripts
+## Scripts (package.json)
 
-- `npm run dev` - Start Vite dev server
-- `npm run build` - Build for production
-- `npm run preview` - Preview the production build
-- `npm run lint` - Run ESLint
-- `npm run server` - Start Express API with Nodemon
-- `npm run dev:all` - Run client and server together
+- `dev` — start Vite dev server for client
+- `build` — build client for production
+- `preview` — preview the production build
+- `lint` — run ESLint
+- `server` — start Express API with nodemon
+- `dev:all` — run both server and client concurrently
 
-## API Routes
+## API endpoints (high level)
 
-Base paths (see route handlers in `server/routes` for details):
+- `POST /api/auth` — login/register endpoints
+- `GET /api/components` — list and filter components
+- `GET /api/builds` — retrieve saved builds
+- `POST /api/builds` — create/save builds (authenticated)
+- `GET /api/admin/*` — admin-only routes (requires admin role)
 
-- `POST /api/auth` - Authentication endpoints
-- `GET /api/components` - Component catalog and filters
-- `GET /api/builds` - Build management
-- `GET /api/admin` - Admin-only management
+Refer to route files in `server/routes/` for exact endpoints and request/response shapes.
 
-## API Health Check
+## Seed data
 
-The API exposes a health endpoint:
+If you need sample data, run the seed script at `src/scripts/seed.js`. Review it and update DB connection as necessary.
 
-```
-GET /api/health
-```
+## Deployment / Live preview
 
-Returns status, timestamp, and DB connection state.
+- Frontend hosting: Vercel — the client is deployed at https://pc-sensei.vercel.app/
+- Backend hosting: Render — the API is hosted and reachable at https://www.pcsensei.pr1nce.tech/
 
-## Optional: Seed Data
+- The repo includes `vercel.json` for Vercel deployments; review environment variables before deploying your own instances.
 
-If you want sample data, review the seed script at `src/scripts/seed.js` and run it after configuring your database connection.
+Live preview links:
 
-## License
+- https://pc-sensei.vercel.app/  (frontend)
+- https://www.pcsensei.pr1nce.tech/  (backend/preview)
 
-This project is for educational use as part of a university assignment.
+Note: both domains serve the same deployed site — the frontend is hosted on Vercel and the backend/API is hosted on Render. Both links currently point to the full site (two domains for the same deployment).
+
+## Author
+
+**Prince Makhansa**
+
+- GitHub: [@PrinceMakhansa](https://github.com/PrinceMakhansa)
+- Email: [princemakhansa@gmail.com](mailto:princemakhansa@gmail.com)
+
