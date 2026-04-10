@@ -65,6 +65,10 @@ const socials = [
 ]
 
 function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+
   return (
     <footer className="bg-nav mt-auto">
       {/* Red accent top bar */}
@@ -75,7 +79,7 @@ function Footer() {
 
           {/* Brand column */}
           <div>
-            <Logo variant="light" />
+            <Logo variant="light" onClick={scrollToTop} />
             <p className="text-[#9f9891] text-sm mt-4 mb-6 leading-relaxed max-w-[240px]">
               Build smarter PCs with compatibility-first guidance and AI-powered recommendations.
             </p>
@@ -105,6 +109,7 @@ function Footer() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
+                    onClick={scrollToTop}
                     className="text-[#9f9891] text-sm hover:text-bg transition-colors flex items-center gap-1.5 group"
                   >
                     <span className="w-3 h-px bg-accent inline-block flex-shrink-0" />
@@ -125,6 +130,7 @@ function Footer() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
+                    onClick={scrollToTop}
                     className="text-[#9f9891] text-sm hover:text-bg transition-colors flex items-center gap-1.5 group"
                   >
                     <span className="w-3 h-px bg-accent inline-block flex-shrink-0" />

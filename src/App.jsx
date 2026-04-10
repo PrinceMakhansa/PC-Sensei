@@ -26,6 +26,7 @@ import BuildsPage from './pages/admin/BuildsPage'
 import AdminsPage from './pages/admin/AdminsPage'
 
 import ProtectedRoute from './components/ProtectedRoute'
+import ScrollToTop from './components/common/ScrollToTop'
 import { useAuth } from './hooks/useAuth'
 
 function AuthRedirect() {
@@ -66,23 +67,26 @@ function ClientLayout() {
 
 function App() {
   return (
-    <Routes>
-      <Route
-        path="/admin/*"
-        element={
-          <ProtectedRoute role="admin">
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<DashboardPage />} />
-        <Route path="components" element={<ComponentsPage />} />
-        <Route path="users" element={<UsersPage />} />
-        <Route path="admins" element={<AdminsPage />} />
-        <Route path="builds" element={<BuildsPage />} />
-      </Route>
-      <Route path="/*" element={<ClientLayout />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<DashboardPage />} />
+          <Route path="components" element={<ComponentsPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="admins" element={<AdminsPage />} />
+          <Route path="builds" element={<BuildsPage />} />
+        </Route>
+        <Route path="/*" element={<ClientLayout />} />
+      </Routes>
+    </>
   )
 }
 

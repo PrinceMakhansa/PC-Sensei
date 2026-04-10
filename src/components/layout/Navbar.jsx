@@ -190,6 +190,10 @@ function Navbar() {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+
   const isToolActive = tools.some((t) => location.pathname.startsWith(t.to))
 
   const close = () => {
@@ -282,7 +286,10 @@ function Navbar() {
         >
           {/* Logo */}
           <div className="shrink-0 flex items-center">
-            <Logo variant={scrolled ? 'light' : 'dark'} onClick={close} />
+            <Logo
+              variant={scrolled ? 'light' : 'dark'}
+              onClick={() => { close(); scrollToTop() }}
+            />
           </div>
 
           {/* Nav */}
@@ -305,7 +312,14 @@ function Navbar() {
               transform: 'translateX(-50%)',
             }}
           >
-            <NavLink to="/" end onClick={close} className={pillLinkCls}>Home</NavLink>
+            <NavLink
+              to="/"
+              end
+              onClick={() => { close(); scrollToTop() }}
+              className={pillLinkCls}
+            >
+              Home
+            </NavLink>
 
             {/* Tools dropdown */}
             <div className="relative" ref={dropdownRef}>
@@ -382,7 +396,7 @@ function Navbar() {
       {/* ── Mobile ── */}
       <div className="md:hidden max-w-5xl mx-auto flex items-center justify-between">
         <div className="shrink-0 flex items-center">
-          <Logo variant="dark" onClick={close} />
+          <Logo variant="dark" onClick={() => { close(); scrollToTop() }} />
         </div>
         <div className="flex items-center gap-3">
           {user ? (
@@ -425,12 +439,18 @@ function Navbar() {
       >
         <div className="flex flex-col p-3 gap-1">
           {[
-            { to: '/', label: 'Home', end: true },
+            { to: '/', label: 'Home', end: true, onClick: () => { close(); scrollToTop() } },
             ...tools.map((t) => ({ to: t.to, label: t.label, icon: t.icon, bg: t.bg })),
             { to: '/prebuilds', label: 'Prebuilds' },
             { to: '/about', label: 'About' },
           ].map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} onClick={close} className={mobileItemCls}>
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              onClick={item.onClick || close}
+              className={mobileItemCls}
+            >
               {item.icon && (
                 <span className="flex items-center justify-center w-7 h-7 rounded-lg shrink-0" style={{ background: item.bg }}>
                   {item.icon}
