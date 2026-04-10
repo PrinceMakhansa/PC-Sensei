@@ -1,5 +1,6 @@
 import { Component } from "../../src/models/Component.js";
 import { Build } from "../../src/models/Build.js";
+import { SavedBuild } from "../models/Build.js";
 import { User } from "../../src/models/User.js";
 import { createError } from "../middleware/errorHandler.js";
 
@@ -197,10 +198,39 @@ export const adminGetBuilds = async (req, res, next) => {
     const limitNum = Math.min(100, parseInt(limit));
     const skip = (pageNum - 1) * limitNum;
 
-    const [data, total] = await Promise.all([
-      Build.find().sort({ createdAt: -1 }).skip(skip).limit(limitNum).lean(),
-      Build.countDocuments(),
+    const [aiBuilds, savedBuilds] = await Promise.all([
+      Build.find().sort({ createdAt: -1 }).lean(),
+      SavedBuild.find().sort({ savedAt: -1 }).lean(),
     ]);
+
+    const normalizedAi = aiBuilds.map((build) => ({
+      _id: build._id,
+      buildId: build._id,
+      title: build.title,
+      parts: build.parts,
+      totalPrice: build.totalPrice,
+      createdAt: build.createdAt,
+      userId: build.user,
+      kind: "ai",
+    }));
+
+    const normalizedSaved = savedBuilds.map((build) => ({
+      _id: build._id,
+      buildId: build.buildId,
+      title: build.title,
+      parts: build.parts,
+      totalPrice: build.totalPrice,
+      createdAt: build.savedAt,
+      userId: build.userId,
+      kind: "saved",
+    }));
+
+    const combined = [...normalizedAi, ...normalizedSaved].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    const total = combined.length;
+    const data = combined.slice(skip, skip + limitNum);
 
     res.json({ data, pagination: { total, page: pageNum, limit: limitNum, totalPages: Math.ceil(total / limitNum) } });
   } catch (err) {

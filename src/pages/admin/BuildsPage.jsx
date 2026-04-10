@@ -32,13 +32,23 @@ function BuildsPage() {
   const formatPrice = (p) =>
     p ? `₹${Math.round(p * 84).toLocaleString('en-IN')}` : '—'
 
+  const getBuildName = (build) => build.title || build.name || 'Untitled'
+  const getCreatedAt = (build) => build.createdAt || build.savedAt
+  const getPartsCount = (build) => {
+    if (Array.isArray(build.parts)) return build.parts.length
+    if (build.parts && typeof build.parts === 'object') return Object.keys(build.parts).length
+    return 0
+  }
+  const formatDate = (value) =>
+    value ? new Date(value).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'
+
   // Client-side search filter on loaded page
   const filtered = builds.filter((b) => {
     if (!search) return true
     const q = search.toLowerCase()
     return (
-      (b.name ?? '').toLowerCase().includes(q) ||
-      (b.userId ?? '').toLowerCase().includes(q)
+      (getBuildName(b) ?? '').toLowerCase().includes(q) ||
+      String(b.userId ?? '').toLowerCase().includes(q)
     )
   })
 
@@ -66,7 +76,7 @@ function BuildsPage() {
               {
                 label: 'Avg. Parts',
                 value: builds.length
-                  ? Math.round(builds.reduce((a, b) => a + (b.parts?.length ?? 0), 0) / builds.length)
+                  ? Math.round(builds.reduce((a, b) => a + getPartsCount(b), 0) / builds.length)
                   : '—',
               },
               {
@@ -119,15 +129,15 @@ function BuildsPage() {
               ) : filtered.map((b) => (
                 <tr key={b._id} className="border-b border-border/50 hover:bg-bg/60 transition-colors">
                   <td className="py-2.5 px-3 text-primary font-medium">
-                    {b.name || <span className="text-secondary italic">Untitled</span>}
+                    {getBuildName(b) || <span className="text-secondary italic">Untitled</span>}
                   </td>
-                  <td className="py-2.5 px-3 text-secondary">{b.parts?.length ?? 0} parts</td>
+                  <td className="py-2.5 px-3 text-secondary">{getPartsCount(b)} parts</td>
                   <td className="py-2.5 px-3 text-primary font-semibold">{formatPrice(b.totalPrice)}</td>
                   <td className="py-2.5 px-3 text-secondary text-xs">
-                    {new Date(b.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      {formatDate(getCreatedAt(b))}
                   </td>
                   <td className="py-2.5 px-3 text-secondary text-xs font-mono truncate max-w-[80px]">
-                    {b._id.slice(-6)}
+                      {(b.buildId || b._id || '').toString().slice(-6)}
                   </td>
                 </tr>
               ))}
