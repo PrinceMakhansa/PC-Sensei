@@ -88,7 +88,7 @@ connectDB().then(async () => {
   if (process.env.NODE_ENV === "production") {
     const distPath = path.resolve(__dirname, "../dist");
     app.use(express.static(distPath));
-    app.get("/*", (req, res) => {
+    app.get(/.*/, (req, res) => {
       if (req.path.startsWith("/api")) {
         return res.status(404).json({ error: "Not found" });
       }
