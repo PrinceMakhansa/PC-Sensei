@@ -1,27 +1,22 @@
 # PCSENSEI
 
-PCSENSEI is a full-stack web application for planning PC upgrades. It helps users discover compatible PC components, create upgrade plans, and save builds. The app includes a public client, authenticated user features, and an admin area for managing components and builds.
+PCSENSEI is a full-stack web application for planning PC upgrades. It helps users discover compatible components, create upgrade plans, and save builds. The platform provides a public client, authenticated user features, and an admin area for managing components and builds.
 
 This repository contains a university project for the AWT course.
 
-## Quick Project Summary
+## Project Summary
 
 - **Client:** React (Vite), React Router, Tailwind CSS
 - **API:** Express 5 with Mongoose (MongoDB)
-- **Auth:** JWT-based sessions, bcrypt for password hashing
-- **Dev tooling:** Nodemon, Vite, ESLint, PostCSS
+- **Authentication:** JWT-based sessions, bcrypt password hashing
+- **Tooling:** Nodemon, Vite, ESLint, PostCSS
 
-## AI features
+## AI Features
 
-PCSENSEI includes an AI-assisted "AI Build" feature that calls the Gemini API to suggest components and configurations. The AI integration requires a Gemini API key which must be provided via an environment variable `GEMINI_API_KEY`. Do NOT commit the real API key to source control — use `.env` locally and keep `.env.example` in the repo with a placeholder value.
+PCSENSEI includes an AI-assisted "AI Build" feature that calls the Gemini API to suggest components and configurations. The integration requires a Gemini API key via the `GEMINI_API_KEY` environment variable. Do not commit real API keys to source control; use `.env` locally and keep `.env.example` in the repo with a placeholder value.
 
-## GitHub
 
-The project repository is published at: https://github.com/PrinceMakhansa/PC-Sensei
-
-Include the above link in your Word submission as the project source.
-
-## Folder structure (detailed)
+## Folder Structure
 
 ```
 .
@@ -61,9 +56,9 @@ Notes:
 - Server code lives in `server/` and is a standalone Express API.
 - React client lives in `src/` and is built with Vite.
 
-## Environment variables
+## Environment Variables
 
-Create a `.env.local` (client) and `.env` (server) as required. Minimal variables:
+Create a `.env.local` (client) and `.env` (server) as required. Minimum variables:
 
 ```
 MONGODB_URI=mongodb://127.0.0.1:27017/pcsensei
@@ -72,7 +67,7 @@ PORT=5000
 JWT_SECRET=your_jwt_secret_here
 ```
 
-## Run locally (development)
+## Run Locally (Development)
 
 1. Install dependencies
 
@@ -111,7 +106,7 @@ npm run dev:all
 - `server` — start Express API with nodemon
 - `dev:all` — run both server and client concurrently
 
-## API endpoints (high level)
+## API Endpoints (High Level)
 
 - `POST /api/auth` — login/register endpoints
 - `GET /api/components` — list and filter components
@@ -121,14 +116,14 @@ npm run dev:all
 
 Refer to route files in `server/routes/` for exact endpoints and request/response shapes.
 
-## Seed data
+## Seed Data
 
 If you need sample data, run the seed script at `src/scripts/seed.js`. Review it and update DB connection as necessary.
 
-## Deployment / Live preview
+## Deployment / Live Preview
 
-- Frontend hosting: Vercel — the client is deployed at https://pc-sensei.vercel.app/
-- Backend hosting: Render — the API is hosted and reachable at https://www.pcsensei.pr1nce.tech/
+- Frontend hosting: Vercel - the client is deployed at https://pc-sensei.vercel.app/
+- Backend hosting: Render - the API is hosted and reachable at https://www.pcsensei.pr1nce.tech/
 
 - The repo includes `vercel.json` for Vercel deployments; review environment variables before deploying your own instances.
 
@@ -137,7 +132,7 @@ Live preview links:
 - https://pc-sensei.vercel.app/  (frontend)
 - https://www.pcsensei.pr1nce.tech/  (backend/preview)
 
-Note: both domains serve the same deployed site — the frontend is hosted on Vercel and the backend/API is hosted on Render. Both links currently point to the full site (two domains for the same deployment).
+Note: both domains serve the same deployed site. The frontend is hosted on Vercel and the backend/API is hosted on Render. Both links currently point to the full site (two domains for the same deployment).
 
 ## Author
 
