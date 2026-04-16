@@ -290,12 +290,14 @@ function HomePage() {
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <Reveal>
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-3 py-1 mb-4">
+            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-fu  ll px-3 py-1 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" />
               <span className="text-[11px] font-semibold uppercase tracking-widest text-accent-dark">AI-guided PC planning</span>
             </div>
             <h1 className="text-4xl lg:text-[3.4rem] font-bold text-primary leading-[1.08] tracking-tight">
-              Build the <span className="text-accent">Perfect PC</span><br />Without the Guesswork
+              Build the<br />
+              <span className="text-accent font-amanojaku">Perfect <span style={{ marginLeft: '0.2em' }}>PC</span></span><br />
+              Without the Guesswork
             </h1>
             <p className="mt-5 text-secondary max-w-xl leading-relaxed">
               PCSensei helps beginners confidently choose parts, avoid compatibility mistakes, and spend smarter on hardware that actually fits their goals.

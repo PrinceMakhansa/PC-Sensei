@@ -1,4 +1,6 @@
 import { useMemo, useState, useEffect, useCallback, useRef } from 'react'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 import { fetchComponents } from '../../api/components'
 import { useSaveBuilds } from '../../hooks/useSaveBuilds'
 
@@ -248,6 +250,89 @@ function ManualBuilderPage() {
       showToast('Could not save')
     } finally {
       setSaving(false)
+    }
+  }
+
+  const handleExportBuild = async () => {
+    if (!summary.allSelected) {
+      showToast('Select all parts to export')
+      return
+    }
+
+    try {
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' })
+      const marginLeft = 40
+      let cursorY = 44
+      const colors = {
+        primary: [46, 46, 46],
+        accent: [193, 63, 63],
+        accentDark: [177, 18, 38],
+        muted: [122, 122, 122],
+        border: [214, 207, 200],
+      }
+
+      try {
+        const logoResponse = await fetch('/PCSensei_png_dark.png')
+        if (logoResponse.ok) {
+          const logoBlob = await logoResponse.blob()
+          const logoDataUrl = await new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onload = () => resolve(reader.result)
+            reader.onerror = reject
+            reader.readAsDataURL(logoBlob)
+          })
+          doc.addImage(logoDataUrl, 'PNG', marginLeft, cursorY - 6, 96, 28)
+          cursorY += 28
+        }
+      } catch {
+        // If the logo fails to load, continue without it.
+      }
+
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(16)
+      doc.setTextColor(...colors.primary)
+      doc.text('PCSensei Manual Build', marginLeft, cursorY + 18)
+      cursorY += 30
+
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(10)
+      doc.setTextColor(...colors.muted)
+      doc.text(`Build ID: ${buildId}`, marginLeft, cursorY)
+      cursorY += 14
+      doc.text(`Total price: INR ${summary.totalPrice.toLocaleString('en-IN')}`, marginLeft, cursorY)
+      cursorY += 14
+      doc.text(`Est. wattage: ${summary.totalWattage}W`, marginLeft, cursorY)
+      cursorY += 16
+
+      const rows = Object.entries(normalizedParts).map(([key, part]) => [
+        key.toUpperCase(),
+        part.name || '',
+        part.brand || '',
+        `INR ${part.price.toLocaleString('en-IN')}`,
+        part.specs || '',
+      ])
+
+      autoTable(doc, {
+        startY: cursorY,
+        head: [['Part', 'Name', 'Brand', 'Price', 'Specs']],
+        body: rows,
+        styles: { fontSize: 9, cellPadding: 4, valign: 'top' },
+        headStyles: { fillColor: colors.accent, textColor: 255, fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [248, 244, 240] },
+        bodyStyles: { textColor: colors.primary, lineColor: colors.border },
+        tableLineColor: colors.border,
+        margin: { left: marginLeft, right: marginLeft },
+      })
+
+      doc.setFontSize(9)
+      doc.setTextColor(...colors.muted)
+      const footerY = doc.internal.pageSize.height - 24
+      doc.text(`Exported from PCSensei on ${new Date().toLocaleString('en-IN')}`, marginLeft, footerY)
+
+      doc.save(`pcsensei-build-${Date.now()}.pdf`)
+      showToast('Build exported as PDF')
+    } catch (err) {
+      showToast('Export failed. Please try again.')
     }
   }
 
@@ -509,7 +594,9 @@ function ManualBuilderPage() {
                 })}
               </div>
             </div>
-            <button disabled={!summary.allSelected}
+            <button
+              onClick={handleExportBuild}
+              disabled={!summary.allSelected}
               className="w-full py-2.5 text-sm font-semibold text-white rounded-xl transition-all"
               style={{ background: summary.allSelected ? 'var(--color-accent)' : '#d1cdc9', cursor: summary.allSelected ? 'pointer' : 'not-allowed', border: 'none' }}
             >Export build</button>

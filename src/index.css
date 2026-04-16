@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Yuji+Syuku&display=swap');
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Amanojaku Demo';
+  src: url('/fonts/Amanojaku%20Demo.otf') format('opentype');
+  font-display: swap;
+}
+
 @theme {
   --color-bg:           #F8F4F0;
   --color-nav:          #1C1C1C;
@@ -57,6 +63,9 @@
     opacity: 0;
     transform: translateY(8px);
     animation: staggerIn 0.45s ease forwards;
+  }
+  .font-amanojaku {
+    font-family: 'Amanojaku Demo', serif;
   }
 }
 

@@ -110,11 +110,11 @@ function PrebuildsPage() {
         {filtered.length === 0 ? (
           <p className="text-sm" style={{ color: 'var(--color-secondary)' }}>No builds match this filter.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="columns-1 sm:columns-2 gap-4 [column-fill:_balance]">
             {filtered.map((build) => (
               <div
                 key={build.id}
-                className="rounded-2xl overflow-hidden"
+                className="rounded-2xl overflow-hidden break-inside-avoid mb-4 transition-all duration-300"
                 style={{ background: 'var(--color-card)', border: '1px solid var(--color-border)' }}
               >
                 {/* Card header */}
@@ -189,11 +189,15 @@ function PrebuildsPage() {
                 </div>
 
                 {/* Expanded parts */}
-                {expandedId === build.id && (
-                  <div
-                    className="border-t px-5 py-4 flex flex-col gap-2"
-                    style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg)' }}
-                  >
+                <div
+                  className={`border-t transition-all duration-400 overflow-hidden ${expandedId === build.id ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'}`}
+                  style={{
+                    borderColor: 'var(--color-border)',
+                    background: 'var(--color-bg)',
+                    maxHeight: expandedId === build.id ? 520 : 0,
+                  }}
+                >
+                  <div className="px-5 py-4 flex flex-col gap-2">
                     {Object.entries(build.parts).map(([key, part]) => (
                       <div key={key} className="flex items-start justify-between gap-2">
                         <div>
@@ -212,7 +216,7 @@ function PrebuildsPage() {
                       </div>
                     ))}
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </div>
